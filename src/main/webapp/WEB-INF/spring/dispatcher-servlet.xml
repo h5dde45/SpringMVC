@@ -13,15 +13,15 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/*"/>
-            <bean class="ru.javabegin.training.interceptors.CheckUserInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/*"/>
-            <bean class="ru.javabegin.training.interceptors.TimeInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/*"/>-->
+            <!--<bean class="ru.javabegin.training.interceptors.CheckUserInterceptor"/>-->
+            <!--</mvc:interceptor>-->
+            <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/*"/>-->
+            <!--<bean class="ru.javabegin.training.interceptors.TimeInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 </beans>

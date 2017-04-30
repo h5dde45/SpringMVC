@@ -1,8 +1,14 @@
 package ru.javabegin.training.objects;
 
+import javax.validation.constraints.Size;
+
 public class User {
+
+    @Size(min = 6, message = "Имя должно быть больше 6 знаков")
     private String name;
 
+    @Size(min = 6, max = 10,
+            message = "Имя должно быть от 5 до 10 знаков")
     private String password;
     private boolean admin;
 
