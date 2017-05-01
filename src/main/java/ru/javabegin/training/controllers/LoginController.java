@@ -1,9 +1,10 @@
 package ru.javabegin.training.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,24 +12,36 @@ import ru.javabegin.training.objects.User;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 public class LoginController {
 
+    @Autowired
+    private MessageSource messageSource;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView main(@ModelAttribute User user, HttpSession session) {
+    public String main(@ModelAttribute User user, HttpSession session, Locale locale) {
+        System.out.println(locale.getDisplayLanguage());
+        System.out.println(messageSource.getMessage("locale",
+                new String[] {locale.getDisplayName(locale)},locale));
         user.setName("usernamevalue");
-        return new ModelAndView("login", "user", user);
+        return "login";
     }
 
     @RequestMapping(value = "/check-user", method = RequestMethod.POST)
-    public String checkUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "login";
-        }
+    public ModelAndView checkUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+                            Locale locale) {
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("locale",messageSource.getMessage("locale",
+                new String[] {locale.getDisplayName(locale)},locale));
 
-        return "main";
+        if (bindingResult.hasErrors()) {
+             modelAndView.setViewName("login");
+        }else
+             modelAndView.setViewName("main");
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/failed", method = RequestMethod.GET)
